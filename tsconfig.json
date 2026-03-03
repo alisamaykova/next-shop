@@ -19,7 +19,13 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@components/*": ["./src/shared/components/*"],
+      "@stores/*": ["./src/shared/stores/*"],
+      "@api/*": ["./src/shared/api/*"],
+      "@hooks/*": ["./src/shared/hooks/*"],
+      "@types/*": ["./src/shared/types/*"],
+      "@styles/*": ["./src/shared/styles/*"]
     }
   },
   "include": [
