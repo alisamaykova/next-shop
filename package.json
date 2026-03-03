@@ -9,14 +9,17 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "mobx": "^6.15.0",
-    "mobx-react-lite": "^4.1.1",
+    "axios": "^1.13.6",
+    "classnames": "^2.5.1",
+    "mobx": "^6.13.6",
+    "mobx-react-lite": "^4.1.0",
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "sass": "^1.97.3"
   },
   "devDependencies": {
+    "@types/axios": "^0.9.36",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

@@ -1,7 +1,12 @@
-import type { NextConfig } from "next";
+const path = require('path');
 
-const nextConfig: NextConfig = {
-  /* config options here */
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  sassOptions: {
+    includePaths: [
+      path.join(__dirname, 'src/shared/styles')
+    ],
+  },
 };
 
-export default nextConfig;
+module.exports = nextConfig;
