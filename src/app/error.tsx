@@ -1,8 +1,6 @@
 'use client'
 
 import { useEffect } from "react"
-import Text from "@/shared/components/Text";
-import Button from "@/shared/components/Button";
 import styles from "./error.module.scss"
 
 export default function Error({
@@ -18,8 +16,8 @@ export default function Error({
 
     return(
         <div className={styles.root}>
-            <Text className={styles['root__text']} view="p-20">Что-то пошло не так</Text>
-            <Button className={styles['root__button']} onClick={() => reset()}>Попробовать снова</Button>
+            <p>Что-то пошло не так</p>
+            <button className={styles['root__button']} onClick={() => reset()}>Попробовать снова</button>
         </div>
     )
 }

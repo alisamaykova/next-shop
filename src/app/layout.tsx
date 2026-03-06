@@ -6,9 +6,9 @@ import { InitAuth } from "./initAuth";
 import { Header } from "@/shared/components/Layout/Header";
 import { Roboto } from "next/font/google";
 import { isServer } from "@/shared/utils/isServer";
-import { enableStaticRendering } from "mobx-react-lite";
+//import { enableStaticRendering } from "mobx-react-lite";
 
-enableStaticRendering(isServer)
+//enableStaticRendering(isServer)
 
 const roboto = Roboto({
   subsets: ['latin', 'cyrillic']
