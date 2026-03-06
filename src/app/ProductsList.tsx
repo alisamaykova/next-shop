@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { observer } from 'mobx-react-lite';
 import { useStore } from '@/shared/stores/global/RootStore';
@@ -16,33 +16,63 @@ import type { Option } from '@/shared/components/MultiDropdown/MultiDropdown';
 import Loader from '@/shared/components/Loader';
 import styles from './ProductList.module.scss';
 
-export const ProductList = observer(() => {
+type Props = {
+  initialProducts: any[];
+  initialTotal: number;
+  initialPage: number;
+  categories: Option[];
+  initialSelectedCategories: string[];
+  initialSearch: string;
+};
+
+export const ProductList = observer(({
+  initialProducts,
+  initialTotal,
+  initialPage,
+  categories,
+  initialSelectedCategories,
+  initialSearch,
+}: Props) => {
   const router = useRouter();
   const { cartStore, queryParamsStore } = useStore();
   const store = useLocalStore(() => new ProductListPageStore(queryParamsStore));
-  const [localSearch, setLocalSearch] = useState(store.searchQuery);
+  const [localSearch, setLocalSearch] = useState(initialSearch);
+
+  useEffect(() => {
+    store.setProducts(initialProducts);
+    store.setTotal(initialTotal);
+    store.setPage(initialPage);
+    store.setCategories(categories);
+    store.setSelectedCategories(
+      categories.filter(cat => initialSelectedCategories.includes(cat.key))
+    );
+    store.setSearchQuery(initialSearch);
+  }, []); 
 
   const handleSearch = () => {
     store.applySearch(localSearch);
+    const params = new URLSearchParams(window.location.search);
+    params.set('search', localSearch);
+    params.set('page', '1');
+    router.push(`/products?${params.toString()}`);
   };
-
 
   const handleCardClick = (documentId: string) => {
-    router.push(`/product/${documentId}`);
+    router.push(`/products/${documentId}`);
   };
 
-  const handleFilterChange = (categories: Option[]) => {
-    console.log('handleFilterChange received:', categories);
-    store.applyFilter(categories);
+  const handleFilterChange = (newCategories: Option[]) => {
+    store.applyFilter(newCategories);
   };
 
-  if (store.productsMeta.isLoading && store.products.length === 0) {
+
+  /*if (store.productsMeta.isLoading && store.products.length === 0) {
     return <div className={styles['loader--container']}><Loader size="l" /></div>;
   }
 
   if (store.productsMeta.isError) {
     return <div className={styles['error--container']}>Error: {store.productsMeta.error}</div>;
-  }
+  } */
 
   return (
     <div className={styles.root}>

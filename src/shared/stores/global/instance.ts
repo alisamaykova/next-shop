@@ -1,3 +1,3 @@
-import { RootStore } from './RootStore';
+import { RootStore } from "./RootStore";
 
 export const rootStore = new RootStore();

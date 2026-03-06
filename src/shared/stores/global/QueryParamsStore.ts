@@ -1,12 +1,18 @@
-import { makeObservable, observable, action } from 'mobx';
+import { makeObservable, observable, action } from "mobx";
 
-type PrivateFields = '_params' | '_updateUrl';
+import { isServer } from "@/shared/utils/isServer";
+
+type PrivateFields = "_params" | "_updateUrl";
 
 export class QueryParamsStore {
   private _params: URLSearchParams;
 
   constructor() {
-    this._params = new URLSearchParams(window.location.search);
+    if (isServer) {
+      this._params = new URLSearchParams();
+    } else {
+      this._params = new URLSearchParams(window.location.search);
+    }
     makeObservable<this, PrivateFields>(this, {
       _params: observable,
       _updateUrl: action.bound,
@@ -16,7 +22,7 @@ export class QueryParamsStore {
   }
 
   getParam(key: string): string {
-    return this._params.get(key) || '';
+    return this._params.get(key) || "";
   }
 
   getNumberParam(key: string, defaultValue: number): number {
@@ -26,19 +32,20 @@ export class QueryParamsStore {
 
   getArrayParam(key: string): string[] {
     const value = this._params.get(key);
-    return value ? value.split(',') : [];
+    return value ? value.split(",") : [];
   }
 
   private _updateUrl() {
+    if (isServer) return;
     const url = new URL(window.location.href);
     url.search = this._params.toString();
-    window.history.pushState({}, '', url.toString());
+    window.history.pushState({}, "", url.toString());
   }
 
   setParam(key: string, value: string | number | string[]) {
     if (Array.isArray(value)) {
       if (value.length > 0) {
-        this._params.set(key, value.join(','));
+        this._params.set(key, value.join(","));
       } else {
         this._params.delete(key);
       }
@@ -61,7 +68,7 @@ export class QueryParamsStore {
     Object.entries(updates).forEach(([key, value]) => {
       if (Array.isArray(value)) {
         if (value.length > 0) {
-          this._params.set(key, value.join(','));
+          this._params.set(key, value.join(","));
         } else {
           this._params.delete(key);
         }

@@ -1,5 +1,6 @@
+import { isServer } from "../../utils/isServer";
+
 import { RootStore } from "./RootStore";
-import { isServer } from '../../utils/isServer';
 
 let clientStore: RootStore | undefined;
 

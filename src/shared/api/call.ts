@@ -1,16 +1,14 @@
-import axios from 'axios';
-import type { AxiosRequestConfig, Method } from 'axios';
+import axios from "axios";
 
-const BASE_URL = 'https://front-school-strapi.ktsdev.ru/api';
+const BASE_URL = "https://front-school-strapi.ktsdev.ru/api";
 
 type CallParams = {
   endpoint: string;
-  method?: Method;
+  method?: string;
   data?: any;
   params?: Record<string, any>;
   withAuth?: boolean;
   token?: string;
-  signal?: AbortSignal;
   headers?: Record<string, string>;
 };
 
@@ -23,33 +21,31 @@ type CallResponse<T> = {
 
 export async function call<T = any>({
   endpoint,
-  method = 'GET',
+  method = "GET",
   data,
   params,
   withAuth = false,
   token,
-  signal,
   headers = {},
 }: CallParams): Promise<CallResponse<T>> {
   try {
-    const url = endpoint.startsWith('http') ? endpoint : `${BASE_URL}${endpoint}`;
+    const url = endpoint.startsWith("http")
+      ? endpoint
+      : `${BASE_URL}${endpoint}`;
 
-    const authToken = token || (withAuth ? localStorage.getItem('jwt') : null);
+    const authToken = token || (withAuth ? localStorage.getItem("jwt") : null);
 
-    const config: AxiosRequestConfig = {
+    const response = await axios({
       method,
       url,
       data,
       params,
-      signal,
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         ...(authToken ? { Authorization: `Bearer ${authToken}` } : {}),
         ...headers,
       },
-    };
-
-    const response = await axios(config);
+    });
 
     return {
       isError: false,
@@ -61,7 +57,10 @@ export async function call<T = any>({
     return {
       isError: true,
       data: null,
-      error: error.response?.data?.error?.message || error.message || 'Unknown error',
+      error:
+        error.response?.data?.error?.message ||
+        error.message ||
+        "Unknown error",
       status: error.response?.status || null,
     };
   }

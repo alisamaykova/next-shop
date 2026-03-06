@@ -1,10 +1,10 @@
-import { makeObservable, observable, action, runInAction } from 'mobx';
+import { makeObservable, observable, action } from "mobx";
 
-import { call } from '../../api/call';
+import { call } from "../../api/call";
 
-import type { RootStore } from './RootStore';
+import type { RootStore } from "./RootStore";
 
-type PrivateFields = '_loginRequest' | '_registerRequest' | '_setToken';
+type PrivateFields = "_loginRequest" | "_registerRequest" | "_setToken";
 
 export class AuthStore {
   token: string | null = null;
@@ -28,7 +28,9 @@ export class AuthStore {
   }
 
   private _loadTokenFromStorage() {
-    this.token = localStorage.getItem('jwt');
+    if (typeof window !== "undefined") {
+      this.token = localStorage.getItem("jwt");
+    }
   }
 
   get authHeaders() {
@@ -41,53 +43,59 @@ export class AuthStore {
 
   private async _loginRequest(identifier: string, password: string) {
     return await call<{ jwt: string }>({
-      endpoint: '/auth/local',
-      method: 'POST',
+      endpoint: "/auth/local",
+      method: "POST",
       data: { identifier, password },
     });
   }
 
-  private async _registerRequest(username: string, email: string, password: string) {
+  private async _registerRequest(
+    username: string,
+    email: string,
+    password: string,
+  ) {
     return await call<{ jwt: string }>({
-      endpoint: '/auth/local/register',
-      method: 'POST',
+      endpoint: "/auth/local/register",
+      method: "POST",
       data: { username, email, password },
     });
   }
 
   private _setToken(token: string) {
     this.token = token;
-    localStorage.setItem('jwt', token);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("jwt", token);
+    }
     this.rootStore.cartStore.loadCart();
   }
 
-  async login(identifier: string, password: string) {
-    const response = await this._loginRequest(identifier, password);
-    if (!response.isError) {
-      const data = response.data;
-      if (data) {
-        runInAction(() => {
-          this._setToken(data.jwt);
-        });
-      }
+  async register(username: string, email: string, password: string) {
+    const response = await call<{ jwt: string }>({
+      endpoint: "/auth/local/register",
+      method: "POST",
+      data: { username, email, password },
+    });
+    if (!response.isError && response.data) {
+      this._setToken(response.data.jwt);
     }
     return response;
   }
 
-  async register(username: string, email: string, password: string) {
-    const response = await this._registerRequest(username, email, password);
-    if (!response.isError) {
-      const data = response.data;
-      if (data) {
-        runInAction(() => {
-          this._setToken(data.jwt);
-        });
-      }
+  async login(identifier: string, password: string) {
+    const response = await call<{ jwt: string }>({
+      endpoint: "/auth/local",
+      method: "POST",
+      data: { identifier, password },
+    });
+    if (!response.isError && response.data) {
+      this._setToken(response.data.jwt);
     }
     return response;
   }
   logout() {
     this.token = null;
-    localStorage.removeItem('jwt');
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("jwt");
+    }
   }
 }

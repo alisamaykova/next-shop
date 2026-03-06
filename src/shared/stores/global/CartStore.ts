@@ -1,10 +1,11 @@
-import { makeObservable, observable, action, runInAction } from 'mobx';
-import type { ProductImage } from 'types/Product';
+import { makeObservable, observable, action, runInAction } from "mobx";
 
-import { call } from '../../api/call';
-import { MetaStore } from '../shared/MetaStore';
+import { call } from "../../api/call";
+import { MetaStore } from "../shared/MetaStore";
 
-import type { RootStore } from './RootStore';
+import type { RootStore } from "./RootStore";
+
+import type { ProductImage } from "@/shared/types/Product";
 
 export type CartItem = {
   id: number;
@@ -17,7 +18,7 @@ export type CartItem = {
   quantity: number;
 };
 
-type PrivateFields = '_loadCart' | '_addItemRequest' | '_removeItemRequest';
+type PrivateFields = "_loadCart" | "_addItemRequest" | "_removeItemRequest";
 
 export class CartStore {
   items: CartItem[] = [];
@@ -42,13 +43,13 @@ export class CartStore {
     this.cartMeta.setLoadedStartMeta();
 
     const response = await call<CartItem[]>({
-      endpoint: '/cart',
-      method: 'GET',
+      endpoint: "/cart",
+      method: "GET",
       withAuth: true,
     });
 
     if (response.isError) {
-      this.cartMeta.setLoadedErrorMeta(response.error || 'Failed to load cart');
+      this.cartMeta.setLoadedErrorMeta(response.error || "Failed to load cart");
       return;
     }
 
@@ -61,8 +62,8 @@ export class CartStore {
 
   private async _addItemRequest(productId: number) {
     return await call({
-      endpoint: '/cart/add',
-      method: 'POST',
+      endpoint: "/cart/add",
+      method: "POST",
       data: { product: productId, quantity: 1 },
       withAuth: true,
     });
@@ -70,8 +71,8 @@ export class CartStore {
 
   private async _removeItemRequest(productId: number, quantity: number) {
     return await call({
-      endpoint: '/cart/remove',
-      method: 'POST',
+      endpoint: "/cart/remove",
+      method: "POST",
       data: { product: productId, quantity },
       withAuth: true,
     });
@@ -87,7 +88,7 @@ export class CartStore {
     const response = await this._addItemRequest(productId);
 
     if (response.isError) {
-      this.cartMeta.setLoadedErrorMeta(response.error || 'Failed to add item');
+      this.cartMeta.setLoadedErrorMeta(response.error || "Failed to add item");
       return;
     }
 
@@ -100,7 +101,9 @@ export class CartStore {
     const response = await this._removeItemRequest(productId, quantity);
 
     if (response.isError) {
-      this.cartMeta.setLoadedErrorMeta(response.error || 'Failed to remove item');
+      this.cartMeta.setLoadedErrorMeta(
+        response.error || "Failed to remove item",
+      );
       return;
     }
 
@@ -112,6 +115,9 @@ export class CartStore {
   }
 
   get totalPrice(): number {
-    return this.items.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
+    return this.items.reduce(
+      (sum, item) => sum + item.product.price * item.quantity,
+      0,
+    );
   }
 }

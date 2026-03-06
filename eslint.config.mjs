@@ -8,7 +8,7 @@ import tsparser from '@typescript-eslint/parser';
 
 export default [
   {
-    ignores: ['/dist', '/build', '/public', '/*.cjs', '**/node_modules'],
+    ignores: ['/dist', '/build', '/public', '/*.cjs', '**/node_modules', '.next/**'],
   },
   js.configs.recommended,
   {

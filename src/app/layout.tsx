@@ -1,11 +1,18 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-//import { enableStaticRendering } from "mobx-react-lite";
-import { isServer } from "../shared/utils/isServer";
 import { RootStoreProvider } from "../providers/RootStoreProvider";
+import { InitAuth } from "./initAuth";
+import { Header } from "@/shared/components/Layout/Header";
+import { Roboto } from "next/font/google";
+import { isServer } from "@/shared/utils/isServer";
+import { enableStaticRendering } from "mobx-react-lite";
 
-//enableStaticRendering(isServer);
+enableStaticRendering(isServer)
+
+const roboto = Roboto({
+  subsets: ['latin', 'cyrillic']
+})
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,7 +38,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <RootStoreProvider>
-          {children}
+          <InitAuth/>
+          <Header/>
+            {children}
         </RootStoreProvider>
       </body>
     </html>

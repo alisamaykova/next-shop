@@ -1,7 +1,12 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "types": ["node", "react", "react-dom", "next"], 
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -19,14 +24,30 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"],
-      "@components/*": ["./src/shared/components/*"],
-      "@stores/*": ["./src/shared/stores/*"],
-      "@api/*": ["./src/shared/api/*"],
-      "@hooks/*": ["./src/shared/hooks/*"],
-      "@types/*": ["./src/shared/types/*"],
-      "@styles/*": ["./src/shared/styles/*"],
-      "@utils/*" : ["./src/shared/utils/*"]
+      "@/*": [
+        "./src/*"
+      ],
+      "@components/*": [
+        "./src/shared/components/*"
+      ],
+      "@stores/*": [
+        "./src/shared/stores/*"
+      ],
+      "@api/*": [
+        "./src/shared/api/*"
+      ],
+      "@hooks/*": [
+        "./src/shared/hooks/*"
+      ],
+      "@types/*": [
+        "./src/shared/types/*"
+      ],
+      "@styles/*": [
+        "./src/shared/styles/*"
+      ],
+      "@utils/*": [
+        "./src/shared/utils/*"
+      ]
     }
   },
   "include": [
@@ -37,5 +58,7 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }

@@ -1,13 +1,23 @@
-import type { ILocalStore } from 'hooks/useLocalStore';
-import { makeObservable, observable, action, runInAction, reaction } from 'mobx';
-import type { IReactionDisposer } from 'mobx';
+import type { ILocalStore } from "@hooks/useLocalStore";
+import {
+  makeObservable,
+  observable,
+  action,
+  runInAction,
+  reaction,
+} from "mobx";
+import type { IReactionDisposer } from "mobx";
 
-import { call } from '../../../api/call';
-import type { Option } from '../../../components/MultiDropdown/MultiDropdown';
-import type { Product } from '../../../types/Product';
-import { MetaStore } from '../../shared/MetaStore';
+import { call } from "../../../api/call";
+import type { Option } from "../../../components/MultiDropdown/MultiDropdown";
+import type { Product } from "../../../types/Product";
+import { MetaStore } from "../../shared/MetaStore";
 
-type PrivateFields = '_loadProducts' | '_loadCategories' | '_applyFilterFromUrl' | '_updateUrl';
+type PrivateFields =
+  | "_loadProducts"
+  | "_loadCategories"
+  | "_applyFilterFromUrl"
+  | "_updateUrl";
 
 export class ProductListPageStore implements ILocalStore {
   products: Product[] = [];
@@ -16,7 +26,7 @@ export class ProductListPageStore implements ILocalStore {
   pageSize = 9;
   total = 0;
   pageCount = 1;
-  searchQuery = '';
+  searchQuery = "";
   categories: Option[] = [];
   selectedCategories: Option[] = [];
 
@@ -42,6 +52,11 @@ export class ProductListPageStore implements ILocalStore {
       setPage: action.bound,
       applyFilter: action.bound,
       applySearch: action.bound,
+      setProducts: action.bound,
+      setTotal: action.bound,
+      setCategories: action.bound,
+      setSelectedCategories: action.bound,
+      setSearchQuery: action.bound,
       destroy: action.bound,
     });
 
@@ -52,16 +67,18 @@ export class ProductListPageStore implements ILocalStore {
 
     this._reactionDisposer = reaction(
       () => [this.page, this.searchQuery, this.selectedCategories],
-      () => this._loadProducts()
+      () => this._loadProducts(),
     );
   }
 
   private async _loadCategories() {
-    const response = await call<{ data: Array<{ id: number; title: string }> }>({
-      endpoint: '/product-categories',
-      method: 'GET',
-      withAuth: false,
-    });
+    const response = await call<{ data: Array<{ id: number; title: string }> }>(
+      {
+        endpoint: "/product-categories",
+        method: "GET",
+        withAuth: false,
+      },
+    );
 
     if (!response.isError && response.data) {
       const categories = response.data.data.map((item) => ({
@@ -75,9 +92,11 @@ export class ProductListPageStore implements ILocalStore {
   }
 
   private _applyFilterFromUrl() {
-    const categoryKeys = this._queryParamsStore.getArrayParam('categories');
+    const categoryKeys = this._queryParamsStore.getArrayParam("categories");
     if (categoryKeys.length > 0 && this.categories.length > 0) {
-      this.selectedCategories = this.categories.filter((cat) => categoryKeys.includes(cat.key));
+      this.selectedCategories = this.categories.filter((cat) =>
+        categoryKeys.includes(cat.key),
+      );
     }
   }
 
@@ -88,16 +107,22 @@ export class ProductListPageStore implements ILocalStore {
       data: Product[];
       meta: { pagination: { total: number; pageCount: number } };
     }>({
-      endpoint: '/products',
-      method: 'GET',
+      endpoint: "/products",
+      method: "GET",
       params: {
-        populate: ['images', 'productCategory'],
+        populate: ["images", "productCategory"],
         pagination: { page: this.page, pageSize: this.pageSize },
         filters: {
-          ...(this.searchQuery ? { title: { $containsi: this.searchQuery } } : {}),
+          ...(this.searchQuery
+            ? { title: { $containsi: this.searchQuery } }
+            : {}),
           ...(this.selectedCategories.length > 0
             ? {
-                productCategory: { id: { $in: this.selectedCategories.map((c) => Number(c.key)) } },
+                productCategory: {
+                  id: {
+                    $in: this.selectedCategories.map((c) => Number(c.key)),
+                  },
+                },
               }
             : {}),
         },
@@ -106,7 +131,9 @@ export class ProductListPageStore implements ILocalStore {
     });
 
     if (response.isError) {
-      this.productsMeta.setLoadedErrorMeta(response.error || 'Failed to load products');
+      this.productsMeta.setLoadedErrorMeta(
+        response.error || "Failed to load products",
+      );
       return;
     }
 
@@ -137,7 +164,7 @@ export class ProductListPageStore implements ILocalStore {
       page: this.page,
       ...(this.searchQuery ? { search: this.searchQuery } : {}),
       ...(this.selectedCategories.length > 0
-        ? { categories: this.selectedCategories.map((c) => c.key).join(',') }
+        ? { categories: this.selectedCategories.map((c) => c.key).join(",") }
         : {}),
     });
   }
@@ -160,6 +187,26 @@ export class ProductListPageStore implements ILocalStore {
     this._loadProducts();
   }
 
+  setProducts(products: Product[]) {
+    this.products = products;
+  }
+
+  setTotal(total: number) {
+    this.total = total;
+  }
+
+  setCategories(categories: Option[]) {
+    this.categories = categories;
+  }
+
+  setSelectedCategories(categories: Option[]) {
+    this.selectedCategories = categories;
+  }
+
+  setSearchQuery(query: string) {
+    this.searchQuery = query;
+  }
+
   destroy() {
     this.productsMeta.resetMeta();
     if (this._reactionDisposer) {
@@ -168,7 +215,7 @@ export class ProductListPageStore implements ILocalStore {
     this.products = [];
     this.categories = [];
     this.selectedCategories = [];
-    this.searchQuery = '';
+    this.searchQuery = "";
     this.page = 1;
   }
 }

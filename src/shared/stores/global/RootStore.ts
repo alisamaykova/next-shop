@@ -1,15 +1,15 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext } from "react";
 
-import { AuthStore } from './AuthStore';
-import { CartStore } from './CartStore';
-import { QueryParamsStore } from './QueryParamsStore';
+import { AuthStore } from "./AuthStore";
+import { CartStore } from "./CartStore";
+import { QueryParamsStore } from "./QueryParamsStore";
 
 export const RootStoreContext = createContext<RootStore | null>(null);
 
 export const useStore = () => {
   const context = useContext(RootStoreContext);
   if (!context) {
-    throw new Error('useStore must be used within RootStoreProvider');
+    throw new Error("useStore must be used within RootStoreProvider");
   }
   return context;
 };

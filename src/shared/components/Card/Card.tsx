@@ -1,6 +1,7 @@
 import React from 'react';
 import Text from '../Text';
 import styles from './Card.module.scss';
+import Image from 'next/image';
 
 export type CardProps = {
   className?: string;
@@ -53,7 +54,7 @@ const Card: React.FC<CardProps> = ({
   return (
     <div className={`${styles.card} ${className || ''}`} onClick={handleClick}>
       <div className={styles['card__image-container']}>
-        <img src={image} alt="" className={styles['card__image']} />
+        <Image src={image} alt="" width={360} height={360} className={styles['card__image']} />
       </div>
 
       <div className={styles['card__content']}>
