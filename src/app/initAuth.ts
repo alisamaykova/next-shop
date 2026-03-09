@@ -14,11 +14,10 @@ export const InitAuth = () => {
         return;
       }
 
-      const registerResult = await authStore.register(
-        "Alice",
-        `Alice${Date.now()}@test.com`,
-        "Test123",
-      );
+      const email = `Alice${Date.now()}@test.com`;
+      const password = "Test123";
+
+      const registerResult = await authStore.register("Alice", email, password);
 
       if (!registerResult.isError) {
         console.log("Регистрация успешна");
@@ -27,10 +26,7 @@ export const InitAuth = () => {
       }
 
       console.log("Регистрация не удалась, пробуем логин");
-      const loginResult = await authStore.login(
-        `Alice${Date.now()}@test.com`,
-        "Test123",
-      );
+      const loginResult = await authStore.login(email, password);
 
       if (!loginResult.isError) {
         console.log("Логин успешен");

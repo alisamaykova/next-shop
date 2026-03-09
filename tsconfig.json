@@ -23,6 +23,7 @@
         "name": "next"
       }
     ],
+    "baseUrl": ".",
     "paths": {
       "@/*": [
         "./src/*"
@@ -47,7 +48,8 @@
       ],
       "@utils/*": [
         "./src/shared/utils/*"
-      ]
+      ],
+      "@public/*": ["./src/public/*"]
     }
   },
   "include": [

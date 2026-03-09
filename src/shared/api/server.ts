@@ -24,7 +24,10 @@ export async function fetchProducts(
     });
   }
 
-  const res = await fetch(`${API_URL}/products?${params}`, {
+  const url = `${API_URL}/products?${params}`;
+  console.log("Fetching URL:", url);
+
+  const res = await fetch(url, {
     next: { revalidate: 60 },
   });
 
@@ -34,7 +37,6 @@ export async function fetchProducts(
 
   return res.json();
 }
-
 export async function fetchCategories() {
   const res = await fetch(`${API_URL}/product-categories`, {
     next: { revalidate: 3600 },

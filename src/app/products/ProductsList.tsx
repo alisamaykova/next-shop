@@ -47,7 +47,7 @@ export const ProductList = observer(({
       categories.filter(cat => initialSelectedCategories.includes(cat.key))
     );
     store.setSearchQuery(initialSearch);
-  }, []); 
+  }, []);
 
   const handleSearch = () => {
     store.applySearch(localSearch);
