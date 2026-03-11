@@ -14,7 +14,7 @@ export const InitAuth = () => {
         return;
       }
 
-      const email = `Alice${Date.now()}@test.com`;
+      const email = 'AliceMM@test.com';
       const password = "Test123";
 
       const registerResult = await authStore.register("Alice", email, password);
