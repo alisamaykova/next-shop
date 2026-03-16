@@ -1,0 +1,81 @@
+@import '../../shared/styles/variables';
+@import '../../shared/styles/mixin';
+
+.root {
+    margin: 0 auto;
+    max-width: 1440px;
+    padding-left: $size-100;
+    padding-right: $size-100;
+    padding-bottom: 112px;
+    padding-top: $size-90;
+
+    @include small-desktop {
+        padding-left: $size-60;
+        padding-right: $size-60;
+        padding-top: $size-140;
+        padding-bottom: $size-80;
+    }
+
+    @include tablet {
+        padding-left: $size-60;
+        padding-right: $size-60;
+        padding-top: $size-80;
+        padding-bottom: $size-80;
+    }
+
+    @include small-tablet {
+        padding-left: $size-30;
+        padding-right: $size-30;
+        padding-top: $size-60;
+        padding-bottom: $size-80;
+    }
+
+    @include mobile {
+        text-align: center;
+        padding-left: $size-30;
+        padding-right: $size-30;
+        padding-top: $size-30;
+        padding-bottom: $size-40;
+    }
+
+
+    &__title {
+        margin-bottom: $size-40;
+
+        @include mobile {
+            font-size: $size-30;
+        }
+    }
+
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3);
+        gap: $size-30;
+
+        @include tablet {
+            grid-template-columns: repeat(2, 1fr);
+            gap: $size-20;
+        }
+
+        @include mobile {
+            grid-template-columns: 1fr;
+            gap: $size-16;
+            justify-items: center;
+        }
+    }
+
+
+    &__card--actions {
+        display: flex;
+        align-items: center;
+        gap: $size-18;
+    }
+
+    &__empty {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: $size-400;
+    }
+}

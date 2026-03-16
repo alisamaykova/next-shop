@@ -1,17 +1,16 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import { observer } from 'mobx-react-lite';
 import { useStore } from '@/shared/stores/global/RootStore';
 import Button from '@/shared/components/Button/Button';
 import Text from '@/shared/components/Text';
 import Loader from '@/shared/components/Loader';
-import styles from './CartPage.module.scss'; 
+import styles from './CartPage.module.scss';
 import Image from 'next/image';
+import { RequireAuth } from '@/shared/components/RequireAuth/RequireAuth';
 
-const CartPage = observer(() => {
-  const router = useRouter();
+const CartPageContent = observer(() => {
   const { cartStore } = useStore();
 
   useEffect(() => {
@@ -26,17 +25,13 @@ const CartPage = observer(() => {
     cartStore.addItem(productId);
   };
 
-  /*if (cartStore.cartMeta.isLoading) {
-    return <div className={styles['loader--container']}><Loader size='l'/></div>;
+  if (cartStore.cartMeta.isLoading) {
+    return <div className={styles['loader--container']}><Loader size='l' /></div>;
   }
-
-  if (cartStore.cartMeta.isError) {
-    return <div className={styles['error--container']}>Error: {cartStore.cartMeta.error}</div>;
-  }*/
 
   return (
     <div className={styles.root}>
-      <Text view="title" className={styles['root__title']}>Shopping Cart</Text>
+      <Text view="title" className={styles['root__title--text']}>Shopping Cart</Text>
 
       {cartStore.items.length === 0 ? (
         <Text view="p-20" color="secondary">Your cart is empty</Text>
@@ -51,7 +46,7 @@ const CartPage = observer(() => {
                   className={styles['root__item--image']}
                 />
                 <div className={styles['root__item--info']}>
-                  <Text className={styles['root__item--title--text']}view="p-18" weight="bold">{item.product.title}</Text>
+                  <Text className={styles['root__item--title--text']} view="p-18" weight="bold">{item.product.title}</Text>
                   <Text view="p-16" color="secondary">${item.product.price}</Text>
                 </div>
                 <div className={styles['root__item--quantity']}>
@@ -84,4 +79,10 @@ const CartPage = observer(() => {
   );
 });
 
-export default CartPage;
+export default function CartPage() {
+  return (
+    <RequireAuth>
+      <CartPageContent />
+    </RequireAuth>
+  )
+};

@@ -25,7 +25,7 @@ export class QueryParamsStore {
     return this._params.get(key) || "";
   }
 
-  getNumberParam(key: string, defaultValue: number): number {
+  getNumberParam(key: string, defaultValue: number | null): number | null {
     const value = this._params.get(key);
     return value ? Number(value) : defaultValue;
   }

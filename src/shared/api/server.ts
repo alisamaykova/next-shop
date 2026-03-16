@@ -5,12 +5,14 @@ export async function fetchProducts(
   pageSize: number = 9,
   search: string = "",
   categories: string[] = [],
+  minPrice?: number | null,
+  maxPrice?: number | null,
+  minRating?: number | null,
 ) {
   const params = new URLSearchParams();
 
   params.append("populate[0]", "images");
   params.append("populate[1]", "productCategory");
-
   params.append("pagination[page]", page.toString());
   params.append("pagination[pageSize]", pageSize.toString());
 
@@ -24,7 +26,17 @@ export async function fetchProducts(
     });
   }
 
-  const url = `${API_URL}/products?${params}`;
+  if (minPrice !== undefined && minPrice !== null) {
+    params.append("filters[price][$gte]", minPrice.toString());
+  }
+  if (maxPrice !== undefined && maxPrice !== null) {
+    params.append("filters[price][$lte]", maxPrice.toString());
+  }
+  if (minRating !== undefined && minRating !== null) {
+    params.append("filters[rating][$gte]", minRating.toString());
+  }
+
+  const url = `${API_URL}/products?${params.toString()}`;
   console.log("Fetching URL:", url);
 
   const res = await fetch(url, {
@@ -64,6 +76,34 @@ export async function fetchProductById(documentId: string) {
 
   if (!res.ok) {
     throw new Error(`Failed to fetch product: ${res.status}`);
+  }
+
+  const data = await res.json();
+  return data.data;
+}
+
+export async function fetchProductsByCategory(
+  categoryId: number,
+  excludeProductId?: number,
+  limit: number = 3,
+) {
+  const params = new URLSearchParams();
+
+  params.append("populate[0]", "images");
+  params.append("populate[1]", "productCategory");
+  params.append("filters[productCategory][id][$eq]", categoryId.toString());
+  params.append("pagination[pageSize]", limit.toString());
+
+  if (excludeProductId) {
+    params.append("filters[id][$ne]", excludeProductId.toString());
+  }
+
+  const res = await fetch(`${API_URL}/products?${params}`, {
+    next: { revalidate: 60 },
+  });
+
+  if (!res.ok) {
+    throw new Error(`Failed to fetch related products: ${res.status}`);
   }
 
   const data = await res.json();

@@ -5,9 +5,9 @@ export default function NotFound() {
     return(
         <div className={styles.root}>
             <h1> 404 </h1>
-            <p>Страница не найдена</p>
+            <p>Page not found</p>
             <Link href = "/" className={styles['root__link']}>
-            <p> Вернуться на главную страницу</p>
+            <p>Back to home</p>
             </Link>
         </div>
     )

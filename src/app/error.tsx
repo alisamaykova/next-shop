@@ -16,8 +16,8 @@ export default function Error({
 
     return(
         <div className={styles.root}>
-            <p>Что-то пошло не так</p>
-            <button className={styles['root__button']} onClick={() => reset()}>Попробовать снова</button>
+            <p>Something went wrong</p>
+            <button className={styles['root__button']} onClick={() => reset()}>Try again</button>
         </div>
     )
 }

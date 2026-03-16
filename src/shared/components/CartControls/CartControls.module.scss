@@ -1,0 +1,37 @@
+@import '../../styles/variables';
+@import '../../styles/mixin';
+
+.control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: $size-52;
+  gap: $size-4;
+
+  &__button {
+    min-width: $size-36;
+    height: $size-36;
+    padding: 0;
+    font-size: $size-18;
+  }
+
+  &__quantity {
+    min-width: $size-24;
+    text-align: center;
+  }
+}
+
+.button {
+  min-width: $size-100;
+
+  @include small-tablet {
+    min-width: $size-80;
+    font-size: $size-14;
+  }
+
+  @include mobile {
+    min-width: $size-80;
+    font-size: $size-12;
+    padding: $size-8;
+  }
+}

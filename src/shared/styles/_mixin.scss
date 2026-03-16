@@ -7,7 +7,7 @@
 }
 
 @mixin small-tablet {
-    @media (min-width: 481px) and (max-width: 754px) {
+    @media (min-width: 481px) and (max-width: 755px) {
         @content
     }
 }
@@ -19,7 +19,7 @@
 }
 
 @mixin small-desktop {
-    @media (min-width: 769px) and (max-width:844px) {
+    @media (min-width: 769px) and (max-width:878px) {
         @content
     }
 }

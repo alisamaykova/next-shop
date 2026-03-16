@@ -1,0 +1,8 @@
+@import '../../styles/variables';
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: $size-2;
+  color: $accent;
+}

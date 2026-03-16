@@ -17,11 +17,11 @@
   animation: spin 1s linear infinite;
 
   &--s {
-    top: 4px;
-    left: 4px;
+    top: $size-4;
+    left: $size-4;
     width: $size-16;
     height: $size-16;
-    border: 2px solid $accent;
+    border: $size-2 solid $accent;
     border-top-color: transparent;
   }
 
@@ -30,7 +30,7 @@
     left: $size-8;
     width: $size-32;
     height: $size-32;
-    border: 4px solid $accent;
+    border: $size-4 solid $accent;
     border-top-color: transparent;
   }
 

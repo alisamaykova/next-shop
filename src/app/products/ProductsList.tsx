@@ -6,15 +6,20 @@ import { observer } from 'mobx-react-lite';
 import { useStore } from '@/shared/stores/global/RootStore';
 import { useLocalStore } from '@/shared/hooks/useLocalStore';
 import { ProductListPageStore } from '@/shared/stores/local/pages/ProductListPageStore';
+import PriceRatingFilter from '@/shared/components/PriceRatingFilter/PriceRatingFilter';
 import Card from '@/shared/components/Card/Card';
-import Button from '@/shared/components/Button/Button';
-import { Pagination } from '@/shared/components/Pagination/Pagination';
+import Button from '@/shared/components/Button';
+import Pagination from '@/shared/components/Pagination';
 import Text from '@/shared/components/Text';
 import Input from '@/shared/components/Input';
-import MultiDropdown from '@/shared/components/MultiDropdown/MultiDropdown';
-import type { Option } from '@/shared/components/MultiDropdown/MultiDropdown';
+import MultiDropdown from '@/shared/components/MultiDropdown';
+import type { Option } from '@/shared/components/MultiDropdown';
 import Loader from '@/shared/components/Loader';
 import styles from './ProductList.module.scss';
+import { CardSkeleton } from '@/shared/components/Card/CardSkeleton';
+import CartControls  from '@/shared/components/CartControls';
+import WishlistButton from '@/shared/components/WishlistButton';
+import { RatingStars } from '@/shared/components/RatingStars/RatingStars';
 
 type Props = {
   initialProducts: any[];
@@ -54,7 +59,6 @@ export const ProductList = observer(({
     const params = new URLSearchParams(window.location.search);
     params.set('search', localSearch);
     params.set('page', '1');
-    router.push(`/products?${params.toString()}`);
   };
 
   const handleCardClick = (documentId: string) => {
@@ -65,14 +69,18 @@ export const ProductList = observer(({
     store.applyFilter(newCategories);
   };
 
-
-  /*if (store.productsMeta.isLoading && store.products.length === 0) {
-    return <div className={styles['loader--container']}><Loader size="l" /></div>;
+  const handleApplyPrice = (min: number | null, max: number | null) => {
+    store.applyPriceFilter(min, max)
   }
 
-  if (store.productsMeta.isError) {
-    return <div className={styles['error--container']}>Error: {store.productsMeta.error}</div>;
-  } */
+  const handleApplyRating = (min: number | null) => {
+    store.applyRatingFilter(min)
+  }
+
+
+  if (store.productsMeta.isLoading && store.products.length === 0) {
+    return <div className={styles['loader--container']}><Loader size="l" /></div>;
+  }
 
   return (
     <div className={styles.root}>
@@ -102,7 +110,7 @@ export const ProductList = observer(({
         </div>
         <div className={styles['root__dropdown--container']}>
           <MultiDropdown
-            className={styles.dropdown}
+            className={styles['root__dropdown']}
             options={store.categories || []}
             value={store.selectedCategories}
             onChange={handleFilterChange}
@@ -113,6 +121,15 @@ export const ProductList = observer(({
             }
           />
         </div>
+        <div className={styles['root__price--rating--container']}>
+          <PriceRatingFilter className={styles['root__price--rating--filter']}
+          minPrice={store.minPrice}
+          maxPrice={store.maxPrice}
+          minRating={store.minRating}
+          onApplyPrice={handleApplyPrice}
+          onApplyRating={handleApplyRating}
+        />
+        </div>
         <div className={styles['root__total--products']}>
           <Text className={styles['root__total--products--text']} view="subtitle">Total products</Text>
           <Text className={styles['root__total--text']} view="p-20" weight='bold' color="accent">{store.total}</Text>
@@ -121,12 +138,14 @@ export const ProductList = observer(({
 
       <div className={styles['root__grid--container']}>
         {store.productsMeta.isLoading ? (
-          <div className={styles['loader--container']}>
-            <Loader size='l' />
+          <div className={styles['root__grid']}>
+            {Array.from({ length: 9 }).map((_, i) => (
+              <CardSkeleton key={i} />
+            ))}
           </div>) : store.products.length === 0 ? (
             <div className={styles['root__empty--grid']}>
               <Text view='p-20' color='secondary'>
-                По данному запросу ничего не найдено
+                No results found
               </Text>
             </div>
           ) : (
@@ -141,14 +160,23 @@ export const ProductList = observer(({
                     product.images?.[0]?.url ||
                     ''
                   }
-                  captionSlot={product.productCategory?.title}
+                  captionSlot={
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      {product.productCategory?.title && (
+                        <span>{product.productCategory.title}</span>
+                      )}
+                      {product.rating && <RatingStars rating={product.rating} />}
+                    </div>
+                  }
                   title={product.title}
                   subtitle={product.description}
                   contentSlot={`$${product.price}`}
                   onClick={() => handleCardClick(documentId)}
-                  actionSlot={<Button onClick={() => cartStore.addItem(product.id)}>
-                    Add to cart
-                  </Button>
+                  actionSlot={
+                    <div className={styles['root__card--actions']}>
+                      <CartControls productId={product.id} />
+                      <WishlistButton product={product} />
+                    </div>
                   }
                 />
               );

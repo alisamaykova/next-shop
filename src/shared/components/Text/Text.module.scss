@@ -2,51 +2,50 @@
 
 .text {
   margin: 0;
-  font-family: 'Roboto', sans-serif;
   font-style: normal;
 
   &__view {
 
     &--title {
-      font-size: 44px;
-      line-height: 48px;
+      font-size: $size-44;
+      line-height: $size-48;
       font-weight: $font-700;
     }
 
     &--subtitle {
-      font-size: 32px;
-      line-height: 36px;
+      font-size: $size-32;
+      line-height: $size-36;
       font-weight: $font-700;
     }
 
     &--button {
-      font-size: 18px;
-      line-height: 18px;
-      font-weight: 400;
+      font-size: $size-18;
+      line-height: $size-18;
+      font-weight: $font-400;
       letter-spacing: 0;
     }
 
     &--p-20 {
-      font-size: 20px;
-      line-height: 24px;
+      font-size: $size-20;
+      line-height: $size-24;
       font-weight: $font-400;
     }
 
     &--p-18 {
-      font-size: 18px;
-      line-height: 22px;
+      font-size: $size-18;
+      line-height: $size-22;
       font-weight: $font-400;
     }
 
     &--p-16 {
-      font-size: 16px;
-      line-height: 20px;
+      font-size: $size-16;
+      line-height: $size-20;
       font-weight: $font-400;
     }
 
     &--p-14 {
-      font-size: 14px;
-      line-height: 18px;
+      font-size: $size-14;
+      line-height: $size-18;
       font-weight: $font-400;
     }
   }

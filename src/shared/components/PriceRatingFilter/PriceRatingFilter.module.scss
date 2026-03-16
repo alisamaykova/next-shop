@@ -1,0 +1,39 @@
+@import '../../styles/variables';
+@import '../../styles/mixin';
+
+.filter {
+  margin-bottom: $size-24;
+  display: flex;
+  gap: $size-24;
+  flex-wrap: wrap;
+
+  @include mobile {
+    flex-direction: column;
+    gap: $size-20;
+  }
+
+  &__section {
+    flex: 1;
+    min-width: $size-250;
+  }
+
+  &__title {
+    margin-bottom: $size-24;
+  }
+
+  &__row {
+    display: flex;
+    align-items: center;
+    gap: $size-12;
+    margin-bottom: $size-24;
+  }
+
+  &__input {
+    flex: 1;
+    min-width: $size-80;
+  }
+
+  &__button {
+    width: 100%;
+  }
+}

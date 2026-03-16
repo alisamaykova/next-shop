@@ -29,12 +29,16 @@ export class ProductListPageStore implements ILocalStore {
   searchQuery = "";
   categories: Option[] = [];
   selectedCategories: Option[] = [];
+  minPrice: number | null = null;
+  maxPrice: number | null = null;
+  minRating: number | null = null;
 
   private _queryParamsStore: any;
   private _reactionDisposer: IReactionDisposer | null = null;
 
   constructor(queryParamsStore: any) {
     this._queryParamsStore = queryParamsStore;
+    this.initFromUrl();
 
     makeObservable<this, PrivateFields>(this, {
       products: observable,
@@ -57,18 +61,32 @@ export class ProductListPageStore implements ILocalStore {
       setCategories: action.bound,
       setSelectedCategories: action.bound,
       setSearchQuery: action.bound,
+      minPrice: observable,
+      maxPrice: observable,
+      minRating: observable,
+      applyPriceFilter: action.bound,
+      applyRatingFilter: action.bound,
       destroy: action.bound,
     });
+
+    this._reactionDisposer = reaction(
+      () => [
+        this.page,
+        this.searchQuery,
+        this.selectedCategories,
+        this.minPrice,
+        this.maxPrice,
+        this.minRating,
+      ],
+      () => {
+        this._loadProducts();
+      },
+    );
 
     this._loadCategories().then(() => {
       this._applyFilterFromUrl();
       this._loadProducts();
     });
-
-    this._reactionDisposer = reaction(
-      () => [this.page, this.searchQuery, this.selectedCategories],
-      () => this._loadProducts(),
-    );
   }
 
   private async _loadCategories() {
@@ -87,21 +105,68 @@ export class ProductListPageStore implements ILocalStore {
       }));
       runInAction(() => {
         this.categories = categories;
+        this._applyFilterFromUrl();
+      });
+    }
+
+    if (!response.isError && response.data) {
+      const categories = response.data.data.map((item) => ({
+        key: String(item.id),
+        value: item.title,
+      }));
+      runInAction(() => {
+        this.categories = categories;
       });
     }
   }
 
+  private initFromUrl() {
+    this.page = this._queryParamsStore.getNumberParam("page", 1);
+    this.searchQuery = this._queryParamsStore.getParam("search");
+    this.minPrice = this._queryParamsStore.getNumberParam("minPrice", null);
+    this.maxPrice = this._queryParamsStore.getNumberParam("maxPrice", null);
+    this.minRating = this._queryParamsStore.getNumberParam("minRating", null);
+  }
   private _applyFilterFromUrl() {
     const categoryKeys = this._queryParamsStore.getArrayParam("categories");
+
     if (categoryKeys.length > 0 && this.categories.length > 0) {
       this.selectedCategories = this.categories.filter((cat) =>
         categoryKeys.includes(cat.key),
       );
+    } else {
+      this.selectedCategories = [];
     }
   }
 
   private async _loadProducts() {
     this.productsMeta.setLoadedStartMeta();
+
+    const filters: any = {};
+
+    if (this.searchQuery) {
+      filters.title = { $containsi: this.searchQuery };
+    }
+
+    if (this.selectedCategories.length > 0) {
+      filters.productCategory = {
+        id: { $in: this.selectedCategories.map((c) => Number(c.key)) },
+      };
+    }
+
+    if (this.minPrice !== null) {
+      if (!filters.price) filters.price = {};
+      filters.price.$gte = this.minPrice;
+    }
+
+    if (this.maxPrice !== null) {
+      if (!filters.price) filters.price = {};
+      filters.price.$lte = this.maxPrice;
+    }
+
+    if (this.minRating !== null) {
+      filters.rating = { $gte: this.minRating };
+    }
 
     const response = await call<{
       data: Product[];
@@ -112,20 +177,7 @@ export class ProductListPageStore implements ILocalStore {
       params: {
         populate: ["images", "productCategory"],
         pagination: { page: this.page, pageSize: this.pageSize },
-        filters: {
-          ...(this.searchQuery
-            ? { title: { $containsi: this.searchQuery } }
-            : {}),
-          ...(this.selectedCategories.length > 0
-            ? {
-                productCategory: {
-                  id: {
-                    $in: this.selectedCategories.map((c) => Number(c.key)),
-                  },
-                },
-              }
-            : {}),
-        },
+        filters: filters,
       },
       withAuth: false,
     });
@@ -166,13 +218,18 @@ export class ProductListPageStore implements ILocalStore {
       ...(this.selectedCategories.length > 0
         ? { categories: this.selectedCategories.map((c) => c.key).join(",") }
         : {}),
+      ...(this.minPrice !== null ? { minPrice: this.minPrice } : {}),
+      ...(this.maxPrice !== null ? { maxPrice: this.maxPrice } : {}),
+      ...(this.minRating !== null ? { minRating: this.minRating } : {}),
     });
   }
+
   setPage(page: number) {
     this.page = page;
     this._updateUrl();
     this._loadProducts();
   }
+
   applyFilter(categories: Option[]) {
     this.selectedCategories = categories;
     this.page = 1;
@@ -201,10 +258,27 @@ export class ProductListPageStore implements ILocalStore {
 
   setSelectedCategories(categories: Option[]) {
     this.selectedCategories = categories;
+    this._updateUrl();
   }
 
   setSearchQuery(query: string) {
     this.searchQuery = query;
+    this._updateUrl();
+  }
+
+  applyPriceFilter(min: number | null, max: number | null) {
+    this.minPrice = min;
+    this.maxPrice = max;
+    this.page = 1;
+    this._updateUrl();
+    this._loadProducts();
+  }
+
+  applyRatingFilter(min: number | null) {
+    this.minRating = min;
+    this.page = 1;
+    this._updateUrl();
+    this._loadProducts();
   }
 
   destroy() {

@@ -9,8 +9,7 @@
   font-size: $size-20;
   font-weight: $font-400;
   line-height: 1.5;
-  height: 52px;
-  width: auto;
+  height: $size-52;
   color: $white;
   background-color: $accent;
   border: none;
@@ -21,11 +20,11 @@
 
 
   &:active {
-    background-color: $button-primary-bg-active;
+    background-color: $accent-active;
   }
 
   &:active:hover {
-    background-color: $button-primary-bg-active;
+    background-color: $accent-active;
   }
 
   &:disabled {

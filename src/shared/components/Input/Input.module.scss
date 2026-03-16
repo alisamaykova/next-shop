@@ -3,7 +3,7 @@
 .input {
   position: relative;
   display: inline-block;
-  min-width: 300px;
+  min-width: $size-300;
   box-sizing: border-box;
   font-size: $size-24;
   font-weight: $font-400;
@@ -15,14 +15,14 @@
     font-weight: $font-400;
     line-height: 1.5;
     width: 100%;
-    height: 52px;
+    height: $size-52;
     padding: $size-8 $size-16;
     padding-right: $size-40;
     border: 1px solid $white;
     color: $primary;
     background-color: $white;
     outline: none;
-    transition: border-color 0.2s ease;
+    transition: border-color 0.3s ease;
 
     &::placeholder {
       color: $secondary;
@@ -43,7 +43,7 @@
 
   &__after {
     position: absolute;
-    right: 12px;
+    right: $size-12;
     top: 50%;
     transform: translateY(-50%);
     z-index: 10;
@@ -51,8 +51,8 @@
 
     svg {
       display: block;
-      width: 27px;
-      height: 27px;
+      width: $size-28;
+      height: $size-28;
     }
 
 

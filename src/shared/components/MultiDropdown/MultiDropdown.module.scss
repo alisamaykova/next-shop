@@ -2,8 +2,8 @@
 
 .multi-dropdown {
   position: relative;
-  width: 300px;
-  height: 52px;
+  width: $size-300;
+  height: $size-52;
   font-size: $size-16;
   font-weight: $font-600;
   line-height: 1.5;
@@ -22,7 +22,7 @@
   font-weight: $font-400;
   line-height: 1.5;
   width: auto;
-  height: 52px;
+  height: $size-52;
 }
 
   .inputafter {
@@ -35,8 +35,8 @@
 
   .inputfield {
     box-sizing: border-box;
-    width: 300px;
-    height: 52px;
+    width: $size-300;
+    height: $size-52;
     font-size: $size-16;
     font-weight: $font-400;
     line-height: 1.5;
@@ -60,15 +60,16 @@
   top: 100%;
   left: 0;
   right: 0;
-  padding-top: 4px;
+  padding-top: $size-4;
   background: $white;
   margin-top: $size-8;
-  max-height: 250px;
+  max-height: $size-250;
   overflow-y: auto;
-  box-shadow: 0 3px 8px 3px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 $size-3 $size-8 $size-3 rgba(0, 0, 0, 0.12);
   font-size: $size-16;
   font-weight: $font-400;
   line-height: 1.5;
+  z-index: 100;
 }
 
 &__option {

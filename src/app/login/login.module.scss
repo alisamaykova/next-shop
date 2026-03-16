@@ -1,0 +1,47 @@
+@import '../../shared/styles/variables';
+@import '../../shared/styles/mixin';
+
+.root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 90px);
+  padding: $size-20;
+
+  &__form {
+    max-width: $size-400;
+    width: 100%;
+    background: $white;
+    padding: $size-24;
+    border-radius: $size-3;
+
+    &--title {
+      text-align: center;
+      margin-bottom: $size-40;
+    }
+  }
+
+  &__input {
+    width: 100%;
+    margin-bottom: $size-20;
+  }
+
+  &__button {
+    width: 100%;
+    margin-top: $size-20;
+  }
+
+  &__toggle {
+    width: 100%;
+    margin-top: $size-20;
+    background: none;
+    border: none;
+    color: $accent;
+    cursor: pointer;
+    text-decoration: underline;
+
+    &:hover {
+      color: $accent-active;
+    }
+  }
+}

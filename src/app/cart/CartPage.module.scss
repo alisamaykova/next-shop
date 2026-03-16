@@ -4,14 +4,50 @@
 .root {
   max-width: 1200px;
   margin: 0 auto;
-  padding: $size-24 $size-20;
+  padding-left: $size-20;
+  padding-top: $size-90;
 
-
-  &__title {
-    margin-bottom: $size-24;
+  @include small-desktop {
+    padding-left: $size-60;
+    padding-right: $size-60;
+    padding-top: $size-140;
+    padding-bottom: $size-80;
   }
 
+  @include tablet {
+    padding-left: $size-60;
+    padding-right: $size-60;
+    padding-top: $size-80;
+    padding-bottom: $size-80;
+  }
+
+  @include small-tablet {
+    padding-left: $size-30;
+    padding-right: $size-30;
+    padding-top: $size-60;
+    padding-bottom: $size-80;
+  }
+
+  @include mobile {
+    text-align: center;
+    padding-left: $size-30;
+    padding-right: $size-30;
+    padding-top: $size-30;
+    padding-bottom: $size-40;
+  }
+
+
+  &__title--text {
+    margin-top: $size-30;
+
+      @include mobile {
+      font-size: $size-30;
+  }
+}
+
+
   &__items {
+    margin-top: $size-50;
     display: flex;
     flex-direction: column;
     gap: $size-16;
@@ -20,7 +56,7 @@
 
   &__item {
     display: grid;
-    grid-template-columns: 80px 1fr auto auto;
+    grid-template-columns: $size-80 1fr auto auto;
     gap: $size-16;
     align-items: center;
     padding: $size-16;
@@ -33,8 +69,8 @@
   }
 
   &__item--image {
-    width: 80px;
-    height: 80px;
+    width: $size-80;
+    height: $size-80;
     object-fit: contain;
   }
 
@@ -71,7 +107,7 @@
     justify-content: flex-end;
     gap: $size-16;
     padding-top: $size-20;
-    border-top: 6px solid $white;
+    border-top: $size-6 solid $white;
   }
 }
 
@@ -82,7 +118,7 @@
 }
 
 .loader--container {
-  margin: 250px auto;
+  margin: $size-250 auto;
   display: flex;
   justify-content: center;
 }

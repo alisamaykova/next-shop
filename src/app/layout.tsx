@@ -3,18 +3,15 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { RootStoreProvider } from "../providers/RootStoreProvider";
 import { InitAuth } from "./initAuth";
-import { Header } from "@/shared/components/Layout/Header";
+import  Header  from "@components/Header";
 import { Roboto } from "next/font/google";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const roboto = Roboto({
+  weight: ['400', '500', '700'],
+  subsets: ['latin', 'cyrillic'],
+  display: 'swap',
+  variable: '--font-roboto'
+})
 
 export const metadata: Metadata = {
   title: "Интернет-магазин",
@@ -28,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className={roboto.variable}>
         <RootStoreProvider>
           <InitAuth/>
           <Header/>

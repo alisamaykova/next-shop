@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description : product.description,
     }
   } catch {
-    return { title: "Товар не найден"}
+    return { title: "Product not found"}
   }
 }
 

@@ -7,20 +7,20 @@
 
 
     &__go-back--button {
-        margin-top: 60px;
+        margin-top: $size-60;
         max-height: $size-48;
         background: none;
         border: none;
         cursor: pointer;
         display: flex;
         align-items: center;
-        gap: 25px;
+        gap: $size-25;
         margin-left: $size-100;
 
         @include tablet {
-            max-height: 30px;
-            margin-left: 50px;
-            margin-top: 30px;
+            max-height: $size-30;
+            margin-left: $size-50;
+            margin-top: $size-30;
         }
 
         @include mobile {
@@ -45,8 +45,8 @@
         height: $size-32;
 
         @include tablet {
-            width: 26px;
-            height: 26px;
+            width: $size-26;
+            height: $size-26;
         }
 
         @include mobile {
@@ -60,28 +60,43 @@
         margin-left: $size-100;
         margin-bottom: $size-48;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
 
         @include tablet {
-            margin-left: 50px;
+            margin-left: $size-50;
         }
 
         @include desktop {
-            flex-direction: column;
             margin-left: $size-32;
             margin-right: $size-20;
         }
 
         @include mobile {
-            flex-direction: column;
             margin-left: $size-20;
             margin-right: $size-20;
         }
     }
 
+    &__main--container {
+        display: flex;
+        flex-direction: row;
+
+        @include small-desktop {
+            flex-direction: column;
+        }
+
+        @include tablet {
+            flex-direction: column;
+        }
+
+        @include mobile {
+            flex-direction: column;
+        }
+    }
+
     &__image--container {
-        max-width: 600px;
-        max-height: 600px;
+        max-width: $size-600;
+        max-height: $size-600;
         flex: 1;
         display: flex;
         justify-content: center;
@@ -100,21 +115,21 @@
         object-fit: contain;
     }
 
-
-
     &__description--container {
         margin-left: $size-48;
-        margin-right: 39px;
+        margin-right: $size-38;
         flex: 1;
         gap: $size-16;
 
-
         @include small-desktop {
-            margin-top: 20px;
+            margin-top: $size-20;
+            margin-left: 0 ;
         }
 
         @include tablet {
+            margin-top: $size-20;
             gap: $size-14;
+            margin-left: 0;
         }
 
         @include small-tablet {
@@ -123,6 +138,7 @@
             max-width: 80%;
             margin-left: auto;
             margin-right: auto;
+            margin-left: 0;
         }
 
         @include mobile {
@@ -130,6 +146,7 @@
             margin-right: $size-20;
             gap: $size-8;
             margin-top: $size-16;
+            margin-left: 0;
         }
     }
 
@@ -176,7 +193,7 @@
     }
 
     &__product--price {
-        margin-top: 80px;
+        margin-top: $size-80;
 
         @include tablet {
             font-size: $size-20;
@@ -204,16 +221,43 @@
             padding: $size-8 $size-12;
         }
     }
-}
 
-.error--container {
-    margin: $size-100 auto;
-    display: flex;
-    justify-content: center;
-}
+    &__related {
 
-.loader--container {
-    margin: 350px auto;
-    display: flex;
-    justify-content: center;
+        &--section {
+            margin-top: $size-48;
+        }
+
+        &--title {
+            margin-bottom: $size-30;
+        }
+
+        &--grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: $size-30;
+
+            @include tablet {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            @include mobile {
+                grid-template-columns: 1fr;
+                justify-items: center;
+            }
+        }
+    }
+
+    &__card--actions {
+        display: flex;
+        align-items: center;
+        gap: $size-18;
+    }
+
+    &--loader {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: $size-300;
+    }
 }

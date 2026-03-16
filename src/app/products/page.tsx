@@ -6,6 +6,8 @@ type Props = {
   searchParams: Promise<{ page?: string; search?: string; categories?: string }>;
 };
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Товары | Интернет-магазин',
   description: 'Каталог товаров нашего магазина',
@@ -21,8 +23,6 @@ export default async function ProductsPage({ searchParams }: Props) {
       fetchProducts(pageNum, 9, search, categoriesArray),
       fetchCategories(),
     ]);
-    console.log('Search params:', { page, search, categories });
-    console.log('Categories array:', categoriesArray);
 
     return (
       <ProductList
@@ -33,7 +33,7 @@ export default async function ProductsPage({ searchParams }: Props) {
         initialSelectedCategories={categoriesArray}
         initialSearch={search}
       />
-    );
+    )
   } catch (error) {
     console.log("Ошибка:", error)
     return (

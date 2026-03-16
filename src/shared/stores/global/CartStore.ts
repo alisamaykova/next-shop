@@ -114,6 +114,11 @@ export class CartStore {
     return this.items.reduce((sum, item) => sum + item.quantity, 0);
   }
 
+  getProductQuantity(productId: number): number {
+    const item = this.items.find((item) => item.product.id === productId);
+    return item ? item.quantity : 0;
+  }
+
   get totalPrice(): number {
     return this.items.reduce(
       (sum, item) => sum + item.product.price * item.quantity,

@@ -4,22 +4,36 @@
 .root {
   margin: 0 auto;
   max-width: 1440px;
-  padding-left: 100px;
-  padding-right: 100px;
+  padding-left: $size-100;
+  padding-right: $size-100;
   padding-bottom: 112px;
   padding-top: 190px;
 
+  @include small-desktop {
+    padding-left: $size-40;
+    padding-right: $size-40;
+    padding-top: $size-140;
+    padding-bottom: $size-80;
+  }
+
   @include tablet {
-    padding-left: 60px;
-    padding-right: 60px;
-    padding-top: 140px;
-    padding-bottom: 80px;
+    padding-left: $size-40;
+    padding-right: $size-40;
+    padding-top: $size-140;
+    padding-bottom: $size-80;
+  }
+
+  @include small-tablet {
+    padding-left: $size-24;
+    padding-right: $size-25;
+    padding-top: $size-140;
+    padding-bottom: $size-80;
   }
 
   @include mobile {
     padding-left: $size-12;
     padding-right: $size-12;
-    padding-top: 60px;
+    padding-top: $size-60;
     padding-bottom: $size-40;
   }
 
@@ -30,14 +44,14 @@
   &__title--text {
 
     @include mobile {
-      font-size: $size-16;
+      font-size: $size-30;
       margin-top: 0;
     }
   }
 
   &__subtitle {
     display: inline-block;
-    max-width: 653px;
+    max-width: 654px;
     margin-top: $size-32;
 
     @include mobile {
@@ -48,13 +62,10 @@
     }
   }
 
-
   &__search--section {
-    margin-top: 50px;
+    margin-top: $size-50;
     max-width: 1240px;
-    max-height: 212px;
-    opacity: visible;
-    margin-bottom: 36px;
+    margin-bottom: $size-36;
 
     @include mobile {
       margin-top: $size-20;
@@ -69,7 +80,7 @@
 
   &__input--container {
     flex: 1;
-    max-width: 1079px;
+    max-width: 1078px;
     display: flex;
     justify-content: center;
   }
@@ -83,53 +94,48 @@
 
   &__search--button {
     flex-shrink: 0;
-    width: 137px;
+    width: 136px;
 
     @include tablet {
       max-width: 120px;
     }
 
     @include mobile {
-      max-width: 90px;
+      max-width: $size-90;
       font-size: $size-14;
       padding: $size-8 $size-12;
     }
   }
 
-
   &__dropdown--container {
     margin-top: $size-24;
+    margin-bottom: $size-24;
+  }
+
+  &__price--rating--container {
+    margin-top: 0;
+    margin-bottom: $size-32;
   }
 
   &__total--products {
-    margin-top: $size-48;
-    max-width: 273px;
-    max-height: 36px;
+    margin-top: 0;
+    margin-bottom: $size-48;
+    max-width: 272px;
+    max-height: $size-36;
     display: flex;
     justify-content: space-between;
     align-items: center;
 
     @include mobile {
-      margin-top: $size-24;
+      margin-bottom: $size-24;
       max-width: 100%;
       justify-content: space-between;
     }
   }
 
-  &__total--products--text {
-    @include mobile {
-      font-size: $size-16;
-    }
-  }
-
-  &__total--text {
-    @include mobile {
-      font-size: $size-16;
-    }
-  }
 
   &__grid__container {
-    margin-top: 35px;
+    margin-top: $size-36;
 
     @include mobile {
       margin-top: $size-20;
@@ -139,7 +145,7 @@
   &__empty--grid {
     width: 100%;
     text-align: center;
-    min-height: 50px;
+    min-height: $size-50;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -163,13 +169,19 @@
     }
   }
 
+  &__card--actions {
+    display: flex;
+    align-items: center;
+    gap: $size-18;
+  }
+
   &__pagination--container {
-    margin-top: 65px;
+    margin-top: 64px;
     display: flex;
     justify-content: center;
 
     @include tablet {
-      margin-top: 50px;
+      margin-top: $size-50;
       text-align: center;
     }
   }
