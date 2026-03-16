@@ -2,9 +2,11 @@
 @import '../../shared/styles/mixin';
 
 .root {
-  max-width: 1200px;
   margin: 0 auto;
-  padding-left: $size-20;
+  max-width: 1440px;
+  padding-left: $size-100;
+  padding-right: $size-100;
+  padding-bottom: 112px;
   padding-top: $size-90;
 
   @include small-desktop {
@@ -37,13 +39,17 @@
   }
 
 
-  &__title--text {
-    margin-top: $size-30;
+  &__title {
+    margin-bottom: $size-40;
 
-      @include mobile {
+    @include mobile {
       font-size: $size-30;
+    }
   }
-}
+
+  &__subtitle {
+    text-align: center;
+  }
 
 
   &__items {

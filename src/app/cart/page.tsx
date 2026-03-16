@@ -31,10 +31,10 @@ const CartPageContent = observer(() => {
 
   return (
     <div className={styles.root}>
-      <Text view="title" className={styles['root__title--text']}>Shopping Cart</Text>
+      <Text view="title" className={styles['root__title']}>Shopping Cart</Text>
 
       {cartStore.items.length === 0 ? (
-        <Text view="p-20" color="secondary">Your cart is empty</Text>
+        <Text view="p-20" color="secondary" className={styles['root__subtitle']}>Your cart is empty</Text>
       ) : (
         <>
           <div className={styles['root__items']}>
