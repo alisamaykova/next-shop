@@ -76,6 +76,11 @@
     display: flex;
     gap: $size-16;
     width: 100%;
+
+    @include mobile{
+      gap: $size-8;
+      flex-direction: column;
+    }
   }
 
   &__input--container {
@@ -101,9 +106,9 @@
     }
 
     @include mobile {
-      max-width: $size-90;
+      width: 100%;
       font-size: $size-14;
-      padding: $size-8 $size-12;
+      margin-top: $size-16;
     }
   }
 
