@@ -1,20 +1,21 @@
-import * as React from 'react';
-import styles from './Text.module.scss';
+import * as React from "react";
+
+import styles from "./Text.module.scss";
 
 export type TextProps = {
   className?: string;
-  view?: 'title' | 'subtitle' | 'button' | 'p-20' | 'p-18' | 'p-16' | 'p-14';
-  tag?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'div' | 'p' | 'span';
-  weight?: 'normal' | 'medium' | 'bold';
+  view?: "title" | "subtitle" | "button" | "p-20" | "p-18" | "p-16" | "p-14";
+  tag?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "div" | "p" | "span";
+  weight?: "normal" | "medium" | "bold";
   children: React.ReactNode;
-  color?: 'primary' | 'secondary' | 'accent';
+  color?: "primary" | "secondary" | "accent";
   maxLines?: number;
 };
 
 const Text: React.FC<TextProps> = ({
   className,
   view,
-  tag: Tag = 'p',
+  tag: Tag = "p",
   weight,
   children,
   color,
@@ -29,14 +30,14 @@ const Text: React.FC<TextProps> = ({
     className,
   ]
     .filter(Boolean)
-    .join(' ');
+    .join(" ");
 
   const style: React.CSSProperties = {};
   if (maxLines) {
     style.WebkitLineClamp = maxLines;
-    style.display = '-webkit-box';
-    style.WebkitBoxOrient = 'vertical';
-    style.overflow = 'hidden';
+    style.display = "-webkit-box";
+    style.WebkitBoxOrient = "vertical";
+    style.overflow = "hidden";
   }
 
   return (

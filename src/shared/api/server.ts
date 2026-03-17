@@ -1,3 +1,5 @@
+import "server-only";
+
 const API_URL = "https://front-school-strapi.ktsdev.ru/api";
 
 export async function fetchProducts(
@@ -37,7 +39,6 @@ export async function fetchProducts(
   }
 
   const url = `${API_URL}/products?${params.toString()}`;
-  console.log("Fetching URL:", url);
 
   const res = await fetch(url, {
     next: { revalidate: 60 },

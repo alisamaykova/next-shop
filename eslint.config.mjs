@@ -5,6 +5,7 @@ import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import tseslint from '@typescript-eslint/eslint-plugin';
 import tsparser from '@typescript-eslint/parser';
+import nextPlugin from '@next/eslint-plugin-next'
 
 export default [
   {
@@ -12,7 +13,7 @@ export default [
   },
   js.configs.recommended,
   {
-    files: ['src/**/*.{ts, tsx}'],
+    files: ['**/*.{ts,tsx}'],
     languageOptions: {
       parser: tsparser,
       parserOptions: {
@@ -26,6 +27,7 @@ export default [
       'react-hooks': reactHooks,
       import: importPlugin,
       prettier,
+      '@next/next': nextPlugin,
     },
     rules: {
       '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
@@ -36,7 +38,7 @@ export default [
       '@typescript-eslint/no-unused-vars': 'error',
       '@typescript-eslint/no-unnecessary-boolean-literal-compare': 'warn',
       '@typescript-eslint/no-unnecessary-condition': 'warn',
-      'no-console': ['error', {allow: ['log', 'warn', 'error']}],
+      'no-console': ['error', {allow: ['warn', 'error']}],
       'no-undef': 'off',
       'eol-last': ['error', 'always'],
       'linebreak-style': ['error', 'unix'],

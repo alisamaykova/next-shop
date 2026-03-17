@@ -1,12 +1,16 @@
-import React from 'react';
-import styles from './RatingStars.module.scss';
+import React from "react";
+
+import styles from "./RatingStars.module.scss";
 
 type RatingStarsProps = {
-  rating: number; 
+  rating: number;
   size?: number;
 };
 
-export const RatingStars: React.FC<RatingStarsProps> = ({ rating, size = 16 }) => {
+export const RatingStars: React.FC<RatingStarsProps> = ({
+  rating,
+  size = 16,
+}) => {
   return (
     <div className={styles.rating}>
       {[...Array(5)].map((_, i) => (
@@ -15,7 +19,7 @@ export const RatingStars: React.FC<RatingStarsProps> = ({ rating, size = 16 }) =
           width={size}
           height={size}
           viewBox="0 0 24 24"
-          fill={i < rating ? 'currentColor' : 'none'}
+          fill={i < rating ? "currentColor" : "none"}
           stroke="currentColor"
           strokeWidth="1.5"
         >

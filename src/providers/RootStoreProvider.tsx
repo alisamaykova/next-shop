@@ -1,9 +1,10 @@
-'use client';
+"use client";
 
 import "@/shared/config/configureMobX";
-import { ReactNode } from 'react';
-import { RootStoreContext } from '@/shared/stores/global/RootStore';
-import { useCreateRootStore } from '@/shared/stores/global/useCreateRootStore';
+import type { ReactNode } from "react";
+
+import { RootStoreContext } from "@/shared/stores/global/RootStore";
+import { useCreateRootStore } from "@/shared/stores/global/useCreateRootStore";
 
 export const RootStoreProvider = ({ children }: { children: ReactNode }) => {
   const store = useCreateRootStore();

@@ -3,9 +3,9 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'front-school.minio.ktsdev.ru',
-        pathname: '/**',
+        protocol: "https",
+        hostname: "front-school.minio.ktsdev.ru",
+        pathname: "/**",
       },
     ],
   },

@@ -1,16 +1,17 @@
-import classNames from 'classnames';
-import * as React from 'react';
-import styles from './Icon.module.scss';
+import classNames from "classnames";
+import * as React from "react";
+
+import styles from "./Icon.module.scss";
 
 export type IconProps = React.SVGAttributes<SVGElement> & {
   className?: string;
-  color?: 'primary' | 'secondary' | 'accent';
+  color?: "primary" | "secondary" | "accent";
 };
 
 const colorMap = {
-  primary: styles['icon__color--primary'],
-  secondary: styles['icon__color--secondary'],
-  accent: styles['icon__color--accent'],
+  primary: styles["icon__color--primary"],
+  secondary: styles["icon__color--secondary"],
+  accent: styles["icon__color--accent"],
 };
 
 const Icon: React.FC<React.PropsWithChildren<IconProps>> = ({
@@ -22,7 +23,10 @@ const Icon: React.FC<React.PropsWithChildren<IconProps>> = ({
   style,
   ...props
 }) => {
-  const combinedClassName = classNames(color ? colorMap[color] : null, className);
+  const combinedClassName = classNames(
+    color ? colorMap[color] : null,
+    className,
+  );
 
   return (
     <svg

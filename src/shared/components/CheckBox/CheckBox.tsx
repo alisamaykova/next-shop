@@ -1,16 +1,18 @@
-import React from 'react';
-import CheckIcon from '../icons/CheckIcon';
-import styles from './CheckBox.module.scss';
+import React from "react";
+
+import CheckIcon from "../icons/CheckIcon";
+
+import styles from "./CheckBox.module.scss";
 
 export type CheckBoxProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
-  'onChange'
+  "onChange"
 > & {
-  onChange: (checked: boolean) => void;
+  onChange: (checked: boolean) => void; // eslint-disable-line no-unused-vars
 };
 
 const CheckBox: React.FC<CheckBoxProps> = ({
-  checked,
+  checked: isChecked,
   onChange,
   disabled = false,
   className,
@@ -25,27 +27,27 @@ const CheckBox: React.FC<CheckBoxProps> = ({
 
   const checkboxClasses = [
     styles.checkbox,
-    disabled ? styles['checkbox--disabled'] : '',
+    disabled ? styles["checkbox--disabled"] : "",
     className,
   ]
     .filter(Boolean)
-    .join(' ');
+    .join(" ");
 
   return (
     <label className={checkboxClasses} style={style}>
       <input
         type="checkbox"
-        checked={checked}
+        checked={isChecked}
         onChange={handleChange}
         disabled={disabled}
-        className={styles['checkbox__input']}
+        className={styles["checkbox__input"]}
         {...props}
       />
-      <span className={styles['checkbox__custom']}>
-        {checked && (
+      <span className={styles["checkbox__custom"]}>
+        {isChecked && (
           <CheckIcon
-            className={styles['checkbox__icon']}
-            color={disabled ? 'secondary' : 'accent'}
+            className={styles["checkbox__icon"]}
+            color={disabled ? "secondary" : "accent"}
           />
         )}
       </span>

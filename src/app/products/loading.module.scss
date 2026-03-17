@@ -1,0 +1,132 @@
+@import '../../shared/styles/variables';
+@import '../../shared/styles/mixin';
+
+.root {
+  margin: 0 auto;
+  max-width: 1440px;
+  padding-left: $size-100;
+  padding-right: $size-100;
+  padding-bottom: 112px;
+  padding-top: 190px;
+
+  @include small-desktop {
+    padding-left: $size-40;
+    padding-right: $size-40;
+    padding-top: $size-140;
+    padding-bottom: $size-80;
+  }
+
+  @include tablet {
+    padding-left: $size-40;
+    padding-right: $size-40;
+    padding-top: $size-140;
+    padding-bottom: $size-80;
+  }
+
+  @include small-tablet {
+    padding-left: $size-24;
+    padding-right: $size-25;
+    padding-top: $size-140;
+    padding-bottom: $size-80;
+  }
+
+  @include mobile {
+    padding-left: $size-12;
+    padding-right: $size-12;
+    padding-top: $size-60;
+    padding-bottom: $size-40;
+  }
+
+
+  &__header {
+    text-align: center;
+  }
+
+  &__search--section {
+    margin-top: $size-50;
+    max-width: 1240px;
+    margin-bottom: $size-36;
+
+    @include mobile {
+      margin-top: $size-20;
+    }
+  }
+
+
+  &__search--bar {
+    display: flex;
+    gap: $size-16;
+    width: 100%;
+
+    @include mobile {
+      gap: $size-8;
+      flex-direction: column;
+    }
+  }
+
+  &__search--input {
+    flex: 1;
+    height: $size-52;
+    max-width: 1078px;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  &__search--button {
+    width: 137px;
+    height: $size-52;
+    background: #e0e0e0;
+    animation: pulse 1.5s ease-in-out infinite;
+
+    @include mobile {
+      width: $size-90;
+    }
+  }
+
+  &__dropdown {
+    width: $size-300;
+    height: $size-52;
+    background: #e0e0e0;
+    animation: pulse 1.5s ease-in-out infinite;
+    margin-top: $size-24;
+    margin-bottom: $size-24;
+  }
+
+  &__total {
+    width: 273px;
+    height: $size-36;
+    background: $blink-one;
+    border-radius: $size-8;
+    margin-bottom: $size-48;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $size-30;
+
+    @include tablet {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include mobile {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+  @keyframes pulse {
+    0% {
+      opacity: 0.6;
+    }
+
+    50% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0.6;
+    }
+  }
+
+

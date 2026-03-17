@@ -25,7 +25,6 @@ export class ProductDetailPageStore implements ILocalStore {
   }
 
   async loadProduct(documentId: string) {
-    console.log("Loading products with documentId", documentId);
     await this._loadProduct(documentId);
   }
 

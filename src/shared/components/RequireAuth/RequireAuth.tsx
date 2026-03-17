@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
-import { useStore } from '@stores/global/RootStore';
+import { useStore } from "@stores/global/RootStore";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export const RequireAuth = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
@@ -10,7 +10,7 @@ export const RequireAuth = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     if (!store.authStore.isAuthenticated) {
-      router.push('/login');
+      router.push("/login");
     }
   }, [store.authStore.isAuthenticated, router]);
 

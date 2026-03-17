@@ -1,7 +1,9 @@
-import React from 'react';
-import Text from '../Text';
-import styles from './Card.module.scss';
-import Image from 'next/image';
+import Image from "next/image";
+import React from "react";
+
+import Text from "../Text";
+
+import styles from "./Card.module.scss";
 
 export type CardProps = {
   className?: string;
@@ -30,7 +32,10 @@ const Card: React.FC<CardProps> = ({
     }
   };
 
-  const wrapWithStopPropagation = (node: React.ReactNode, wrapperClass?: string) => {
+  const wrapWithStopPropagation = (
+    node: React.ReactNode,
+    wrapperClass?: string,
+  ) => {
     if (!node) return null;
     return (
       <div className={wrapperClass} onClick={(e) => e.stopPropagation()}>
@@ -41,7 +46,7 @@ const Card: React.FC<CardProps> = ({
 
   const renderContentSlot = () => {
     if (!contentSlot) return null;
-    if (typeof contentSlot === 'string' || typeof contentSlot === 'number') {
+    if (typeof contentSlot === "string" || typeof contentSlot === "number") {
       return (
         <Text view="p-18" weight="bold">
           {contentSlot}
@@ -52,26 +57,43 @@ const Card: React.FC<CardProps> = ({
   };
 
   return (
-    <div className={`${styles.card} ${className || ''}`} onClick={handleClick}>
-      <div className={styles['card__image-container']}>
-        <Image src={image} alt="" width={360} height={360} className={styles['card__image']} />
+    <div className={`${styles.card} ${className || ""}`} onClick={handleClick}>
+      <div className={styles["card__image-container"]}>
+        <Image
+          src={image}
+          alt=""
+          width={360}
+          height={360}
+          className={styles["card__image"]}
+        />
       </div>
 
-      <div className={styles['card__content']}>
-        {captionSlot && wrapWithStopPropagation(captionSlot, styles['card__caption'])}
+      <div className={styles["card__content"]}>
+        {captionSlot &&
+          wrapWithStopPropagation(captionSlot, styles["card__caption"])}
 
-        <Text maxLines={2} view="p-18" weight="bold" className={styles['card__title']}>
+        <Text
+          maxLines={2}
+          view="p-18"
+          weight="bold"
+          className={styles["card__title"]}
+        >
           {title}
         </Text>
 
         {wrapWithStopPropagation(
-          <Text maxLines={3} view="p-16" color="secondary" className={styles['card__subtitle']}>
+          <Text
+            maxLines={3}
+            view="p-16"
+            color="secondary"
+            className={styles["card__subtitle"]}
+          >
             {subtitle}
           </Text>,
         )}
 
         {(contentSlot || actionSlot) && (
-          <div className={styles['card__footer']}>
+          <div className={styles["card__footer"]}>
             {contentSlot && wrapWithStopPropagation(renderContentSlot())}
             {actionSlot && wrapWithStopPropagation(actionSlot)}
           </div>

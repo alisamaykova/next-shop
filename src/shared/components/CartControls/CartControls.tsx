@@ -1,12 +1,14 @@
-'use client';
+"use client";
 
-import { observer } from 'mobx-react-lite';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { useStore } from '@stores/global/RootStore';
-import Button from '@/shared/components/Button/Button';
-import Text from '@/shared/components/Text';
-import styles from './CartControls.module.scss';
+import { useStore } from "@stores/global/RootStore";
+import { observer } from "mobx-react-lite";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+
+import styles from "./CartControls.module.scss";
+
+import Button from "@/shared/components/Button/Button";
+import Text from "@/shared/components/Text";
 
 type CartControlsProps = {
   productId: number;
@@ -27,9 +29,9 @@ const CartControls = observer(({ productId, className }: CartControlsProps) => {
     e.stopPropagation();
     if (!authStore.isAuthenticated) {
       if (isMounted) {
-        router.push('/login');
+        router.push("/login");
       } else {
-        window.location.href = '/login';
+        window.location.href = "/login";
       }
       return;
     }
@@ -40,9 +42,9 @@ const CartControls = observer(({ productId, className }: CartControlsProps) => {
     e.stopPropagation();
     if (!authStore.isAuthenticated) {
       if (isMounted) {
-        router.push('/login');
+        router.push("/login");
       } else {
-        window.location.href = '/login';
+        window.location.href = "/login";
       }
       return;
     }
@@ -51,9 +53,9 @@ const CartControls = observer(({ productId, className }: CartControlsProps) => {
 
   if (quantity === 0) {
     return (
-      <Button 
-        onClick={handleAdd} 
-        className={`${styles.button} ${className || ''}`}
+      <Button
+        onClick={handleAdd}
+        className={`${styles.button} ${className || ""}`}
       >
         Add to cart
       </Button>
@@ -61,14 +63,21 @@ const CartControls = observer(({ productId, className }: CartControlsProps) => {
   }
 
   return (
-    <div className={`${styles.control} ${className || ''}`} onClick={(e) => e.stopPropagation()}>
-      <Button onClick={handleRemove} className={styles['control__button']}>−</Button>
-      <Text view="p-16" weight="bold" className={styles['control__quantity']}>
+    <div
+      className={`${styles.control} ${className || ""}`}
+      onClick={(e) => e.stopPropagation()}
+    >
+      <Button onClick={handleRemove} className={styles["control__button"]}>
+        −
+      </Button>
+      <Text view="p-16" weight="bold" className={styles["control__quantity"]}>
         {quantity}
       </Text>
-      <Button onClick={handleAdd} className={styles['control__button']}>+</Button>
+      <Button onClick={handleAdd} className={styles["control__button"]}>
+        +
+      </Button>
     </div>
   );
 });
 
-export default CartControls
+export default CartControls;
