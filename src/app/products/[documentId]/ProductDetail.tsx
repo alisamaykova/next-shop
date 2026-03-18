@@ -1,6 +1,5 @@
 "use client";
 
-import Button from "@components/Button";
 import Card from "@components/Card";
 import CartControls from "@components/CartControls";
 import Loader from "@components/Loader";
@@ -9,7 +8,6 @@ import Text from "@components/Text";
 import WishlistButton from "@components/WishlistButton";
 import ArrowSideIcon from "@components/icons/ArrowDownIcon";
 import { useLocalStore } from "@hooks/useLocalStore";
-import { useStore } from "@stores/global/RootStore";
 import { ProductDetailPageStore } from "@stores/local/pages/ProductDetailPageStore";
 import { observer } from "mobx-react-lite";
 import Image from "next/image";
@@ -26,7 +24,6 @@ type Props = {
 const ProductDetailClient = observer(
   ({ initialProduct, initialRelatedProducts }: Props) => {
     const router = useRouter();
-    const { cartStore } = useStore();
     const store = useLocalStore(() => new ProductDetailPageStore());
 
     useEffect(() => {
@@ -34,11 +31,6 @@ const ProductDetailClient = observer(
     }, [initialProduct, store]);
 
     const handleBack = () => router.back();
-    const handleAddToCart = () => {
-      if (store.product) {
-        cartStore.addItem(store.product.id);
-      }
-    };
     const handleRelatedClick = (documentId: string) => {
       router.push(`/products/${documentId}`);
     };
@@ -108,16 +100,17 @@ const ProductDetailClient = observer(
                 ${product.price}
               </Text>
               <div className={styles["root__rating"]}>
-                {product.rating && (
-                  <RatingStars rating={product.rating} />
-                )}
+                {product.rating && <RatingStars rating={product.rating} />}
               </div>
-                <div className={styles["root__actions"]}>
-                  <CartControls className={styles["root__button"]} productId={product.id} />
-                  <WishlistButton product={product} />
-                </div>
+              <div className={styles["root__actions"]}>
+                <CartControls
+                  className={styles["root__button"]}
+                  productId={product.id}
+                />
+                <WishlistButton product={product} />
               </div>
             </div>
+          </div>
           {initialRelatedProducts.length > 0 && (
             <div className={styles["root__related--section"]}>
               <Text view="subtitle" className={styles["root__related--title"]}>

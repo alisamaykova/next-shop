@@ -8,7 +8,7 @@ export type TextProps = {
   tag?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "div" | "p" | "span";
   weight?: "normal" | "medium" | "bold";
   children: React.ReactNode;
-  color?: "primary" | "secondary" | "accent";
+  color?: "primary" | "secondary" | "accent" | "danger";
   maxLines?: number;
 };
 

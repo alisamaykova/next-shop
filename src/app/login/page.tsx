@@ -67,7 +67,11 @@ const LoginPage = observer(() => {
           afterSlot={null}
         />
 
-        {error && <Text view="p-14">{error}</Text>}
+        {error && (
+          <Text view="p-14" color="danger">
+            {error}
+          </Text>
+        )}
 
         <Button
           type="submit"
