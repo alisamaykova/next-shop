@@ -107,16 +107,17 @@ const ProductDetailClient = observer(
               <Text view="title" className={styles["root__product--price"]}>
                 ${product.price}
               </Text>
-              <div className={styles["root__button--container"]}>
-                <Button
-                  className={styles["root__button"]}
-                  onClick={handleAddToCart}
-                >
-                  Add to cart
-                </Button>
+              <div className={styles["root__rating"]}>
+                {product.rating && (
+                  <RatingStars rating={product.rating} />
+                )}
+              </div>
+                <div className={styles["root__actions"]}>
+                  <CartControls className={styles["root__button"]} productId={product.id} />
+                  <WishlistButton product={product} />
+                </div>
               </div>
             </div>
-          </div>
           {initialRelatedProducts.length > 0 && (
             <div className={styles["root__related--section"]}>
               <Text view="subtitle" className={styles["root__related--title"]}>

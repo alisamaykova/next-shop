@@ -123,7 +123,7 @@
 
         @include small-desktop {
             margin-top: $size-20;
-            margin-left: 0 ;
+            margin-left: 0;
         }
 
         @include tablet {
@@ -192,6 +192,10 @@
         }
     }
 
+    &__rating{
+        margin-top: 500px;
+    }
+
     &__product--price {
         margin-top: $size-80;
 
@@ -206,7 +210,14 @@
         }
     }
 
-    &__button--container {
+    &__rating {
+        margin-top: $size-20;
+    }
+
+    &__actions {
+        display: flex;
+        align-items: center;
+        gap: $size-20;
         margin-top: $size-48;
 
         @include tablet {
@@ -220,6 +231,10 @@
             font-size: $size-14;
             padding: $size-8 $size-12;
         }
+    }
+
+    &__wish{
+        margin-top: $size-30;
     }
 
     &__related {
