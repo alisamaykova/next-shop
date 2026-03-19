@@ -2,12 +2,12 @@
 @import '../../styles/mixin';
 
 .header {
-    background-color: $white;
+    background-color: var(--bg-secondary);
     position: sticky;
     top: 0;
     width: 100%;
     height: $size-90;
-    border-bottom: $size-2 solid $line-color;
+    border-bottom: $size-2 solid var(--border-color);
     z-index: 10000;
     overflow: visible;
 
@@ -90,7 +90,7 @@
         }
 
         &--link {
-            color: $primary;
+            color: var(--text-primary);
             text-decoration: none;
             position: relative;
             height: 100%;
@@ -108,7 +108,7 @@
                 bottom: -$size-2;
                 width: 0;
                 height: $size-2;
-                background-color: $accent;
+                background-color: var(--accent);
                 transform: translateX(-50%);
                 transform-origin: center;
                 transition: width 0.3s ease;
@@ -121,12 +121,12 @@
             }
 
             &:hover .navLinkText {
-                color: $accent;
+                color: var(--accent);
                 font-weight: $font-600;
             }
 
             &.active .navLinkText {
-                color: $accent;
+                color: var(--accent);
                 font-weight: $font-600;
             }
 
@@ -144,12 +144,12 @@
             font-size: $size-18;
 
             &:hover {
-                color: $accent;
+                color: var(--accent);
                 font-weight: $font-600;
             }
 
             &.active {
-                color: $accent;
+                color: var(--accent);
                 font-weight: $font-600;
             }
 
@@ -171,7 +171,7 @@
             top: 100%;
             right: 0;
             width: 200px;
-            background: $white;
+            background: var(--bg-secondary);
             flex-direction: column;
             align-items: stretch;
             padding: 0;
@@ -242,14 +242,14 @@
             &--cart {
                 position: relative;
                 display: flex;
-                color: $primary;
+                color: var(--text-primary);
                 width: $size-30;
                 height: $size-30;
                 padding-top: $size-4;
                 transition: color 0.2s ease;
 
                 &:hover {
-                    color: $accent;
+                    color: var(--accent);
                 }
 
                 &--badge {
@@ -273,13 +273,13 @@
                 position: relative;
                 display: flex;
                 padding-top: $size-4;
-                color: $primary;
+                color: var(--text-primary);
                 width: $size-30;
                 height: $size-30;
                 transition: color 0.2s ease;
 
                 &:hover {
-                    color: $accent;
+                    color: var(--accent);
                 }
 
             }
@@ -288,13 +288,13 @@
                 position: relative;
                 display: flex;
                 padding-top: $size-4;
-                color: $primary;
+                color: var(--text-primary);
                 width: $size-30;
                 height: $size-30;
                 transition: color 0.2s ease;
 
                 &:hover {
-                    color: $accent;
+                    color: var(--accent);
                 }
 
             }
@@ -303,7 +303,7 @@
         &--logout {
             position: relative;
             display: flex;
-            color: $primary;
+            color: var(--text-primary);
             background: none;
             line-height: 1.5;
             padding: $size-4;
@@ -311,8 +311,7 @@
             border: none;
 
             &:hover {
-                color: $accent;
-                border-color: $accent;
+                color: var(--accent);;
             }
         }
 

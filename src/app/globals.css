@@ -1,8 +1,38 @@
+:root {
+  --bg-primary: rgb(248, 248, 248);
+  --bg-secondary: #ffffff;
+  --text-primary: #000000;
+  --text-secondary: #AFADB5;
+  --accent: #518581;
+  --accent-hover: #86AAA7;
+  --border-color: #F3F3F3;
+  --card-bg: #ffffff;
+  --input-bg: #ffffff;
+  --login-text: #518581;
+  --login-text-hover: #86AAA7;
+  --border-color: rgba(243, 243, 243, 1);;
+}
+
+[data-theme="dark"] {
+  --bg-primary: #1a1a2a;
+  --bg-secondary: #5a5a76;
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0b0;
+  --accent: #48aba2;
+  --accent-hover: #518581;
+  --border-color: #404040;
+  --card-bg: #2d2d3a;
+  --input-bg: #404040;
+  --login-text: #ffffff;
+  --login-text-hover: #1a1a2a;
+  --border-color: #000000;
+}
+
 html, body{
     margin: 0;
     padding: 0;
     width: 100%;
-    background-color: rgb(248, 248, 248);
+    background-color:var(--bg-primary);
     overflow-x: hidden;
     font-family: var(--font-roboto), sans-serif;
 }

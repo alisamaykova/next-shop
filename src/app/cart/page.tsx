@@ -92,7 +92,11 @@ const CartPageContent = observer(() => {
                     +
                   </Button>
                 </div>
-                <Text view="p-18" weight="bold">
+                <Text
+                  className={styles["root__price"]}
+                  view="p-18"
+                  weight="bold"
+                >
                   ${item.product.price * item.quantity}
                 </Text>
               </div>
@@ -103,7 +107,11 @@ const CartPageContent = observer(() => {
             <Text view="p-20" weight="bold">
               Total:
             </Text>
-            <Text view="p-20" weight="bold" color="accent">
+            <Text
+              view="p-20"
+              weight="bold"
+              className={styles["root__total--price"]}
+            >
               ${cartStore.totalPrice}
             </Text>
           </div>

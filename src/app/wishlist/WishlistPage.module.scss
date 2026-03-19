@@ -40,7 +40,7 @@
 
 
     &__title {
-        margin-bottom: $size-40;
+        color: var(--text-primary);
 
         @include mobile {
             font-size: $size-30;
@@ -52,6 +52,7 @@
     }
 
     &__grid {
+        margin-top: $size-40;
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         grid-template-rows: repeat(3);

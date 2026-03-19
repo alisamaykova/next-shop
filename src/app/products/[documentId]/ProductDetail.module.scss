@@ -16,6 +16,7 @@
         align-items: center;
         gap: $size-25;
         margin-left: $size-100;
+        color: var(--text-primary);
 
         @include tablet {
             max-height: $size-30;
@@ -151,6 +152,7 @@
     }
 
     &__product--title {
+        color: var(--text-primary);
         @include tablet {
             font-size: $size-20;
             gap: $size-12;
@@ -198,6 +200,7 @@
 
     &__product--price {
         margin-top: $size-80;
+        color: var(--text-primary);
 
         @include tablet {
             font-size: $size-20;

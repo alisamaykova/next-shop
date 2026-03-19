@@ -9,7 +9,7 @@
   max-height: 682px;
   height: 100%;
   overflow: hidden;
-  background-color: $white;
+  background-color: var(--card-bg);
   cursor: pointer;
   transition: box-shadow 0.3s ease;
 
@@ -75,6 +75,7 @@
     margin: 0;
     font-size: $size-20;
     min-height: $size-44;
+    color: var(--text-primary);
 
     @include tablet {
       font-size: $size-18;
@@ -100,6 +101,7 @@
     align-items: center;
     margin-top: $size-8;
     gap: $size-10;
+    color: var(--text-primary);
 
     .button {
       width: auto;

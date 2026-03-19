@@ -42,6 +42,7 @@
   }
 
   &__title--text {
+    color: var(--text-primary);
 
     @include mobile {
       font-size: $size-30;
@@ -130,6 +131,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    color: var(--text-primary);
 
     @include mobile {
       margin-bottom: $size-24;

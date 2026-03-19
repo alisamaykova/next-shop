@@ -12,6 +12,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
+import { ThemeToggle } from "../ThemeToggle/ThemeToggle";
 import HeartIcon from "../icons/HeartIcon/HeartIcon";
 import LogoutIcon from "../icons/LogoutIcon";
 
@@ -124,6 +125,7 @@ const Header = observer(() => {
             </Link>
 
             <div className={styles["mobile-icons"]}>
+              <ThemeToggle />
               <Link
                 href={authStore.isAuthenticated ? "/wishlist" : "#"}
                 onClick={(e) => {
@@ -184,6 +186,7 @@ const Header = observer(() => {
 
         {!isMobile && (
           <div className={styles["header__icons"]}>
+            <ThemeToggle />
             <Link
               href={authStore.isAuthenticated ? "/wishlist" : "#"}
               onClick={(e) => {

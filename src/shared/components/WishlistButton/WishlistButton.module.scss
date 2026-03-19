@@ -19,6 +19,6 @@
 
     &:hover,
     &.active{
-        color: $accent;
+        color: var(--accent);
     }
 }

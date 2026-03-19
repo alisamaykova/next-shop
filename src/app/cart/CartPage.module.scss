@@ -41,6 +41,7 @@
 
   &__title {
     margin-bottom: $size-40;
+    color: var(--text-primary);
 
     @include mobile {
       font-size: $size-30;
@@ -67,7 +68,7 @@
     align-items: center;
     padding: $size-16;
     border: none;
-    background-color: $white;
+    background-color: var(--bg-secondary);
 
     @include mobile {
       gap: $size-8
@@ -84,6 +85,7 @@
     display: flex;
     flex-direction: column;
     gap: $size-12;
+    color: var(--text-primary);
   }
 
   &__item--title--text {
@@ -98,6 +100,7 @@
     display: flex;
     align-items: center;
     gap: $size-14;
+    color: var(--text-primary);
   }
 
   &__quantity--button {
@@ -105,6 +108,11 @@
     height: $size-32;
     padding: 0;
     font-size: $size-16;
+    
+  }
+
+  &__price{
+    color: var(--text-primary);
   }
 
   &__total {
@@ -113,7 +121,12 @@
     justify-content: flex-end;
     gap: $size-16;
     padding-top: $size-20;
-    border-top: $size-6 solid $white;
+    border-top: $size-6 solid var(--bg-secondary);
+    color: var(--text-primary);
+
+    &--price{
+      color: var(--accent);
+    }
   }
 }
 
