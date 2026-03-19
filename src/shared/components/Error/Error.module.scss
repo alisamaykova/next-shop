@@ -11,7 +11,7 @@
 
     &__button {
         padding: $size-20;
-        color: $white;
+        color: var(--text-primary);
         background-color: $accent;
         border-radius: $size-4;
         text-decoration: none;
